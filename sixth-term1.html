@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#126b56">
+  <meta name="description" content="TNPSC Group 4 பொதுத் தமிழ் மாதிரி வினாடி வினா — 6ஆம் வகுப்பு பருவம் 1 (100 வினாக்கள்).">
+  <title>TNPSC Group 4 | பொதுத் தமிழ் — 6ஆம் வகுப்பு, பருவம் 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Mobile-Only Compact Sticky Bar (Hidden on Desktop/Laptop > 768px) -->
+<header class="mobile-quiz-bar" id="mobile-quiz-bar" aria-label="மொபைல் தேர்வு நிலவரம்">
+  <div class="mob-bar-inner">
+    <div class="mob-stat-group">
+      <span class="mob-stat-chip">🎯 <b id="mob-answered">0</b>/100</span>
+      <button type="button" class="mob-timer-chip" id="mob-timer-btn" title="நேரத்தை இடைநிறுத்த / தொடங்க">
+        ⏱️ <span id="mob-timer">00:00:00</span>
+      </button>
+    </div>
+    <div class="mob-actions-group">
+      <button type="button" class="mob-btn" id="mob-palette-btn" title="வினாப் பலகை">
+        <span>▦</span> <span class="mob-btn-text">பலகை</span>
+      </button>
+      <button type="button" class="mob-btn mob-btn-icon" id="mob-theme-btn" title="இரவு / பகல் முறை" aria-label="இரவு / பகல் முறை">
+        <span class="mob-theme-icon">☾</span>
+      </button>
+    </div>
+  </div>
+  <div class="mob-progress-track">
+    <div class="mob-prog-correct" id="mob-prog-correct"></div>
+    <div class="mob-prog-wrong" id="mob-prog-wrong"></div>
+  </div>
+</header>
+
+<div class="container quiz-container">
+  <!-- 1. Compact Quiz Header (TNPSC Identity & Controls - No Website Navbar on Desktop) -->
+  <header class="quiz-header-card">
+    <div class="quiz-header-top">
+      <div class="quiz-identity">
+        <span class="tnpsc-badge"><span aria-hidden="true">🏛️</span> TNPSC GROUP 4</span>
+        <span class="subject-badge">பொதுத் தமிழ் · 6-ஆம் வகுப்பு (பருவம் 1)</span>
+      </div>
+      <div class="quiz-header-actions">
+        <button type="button" class="btn-ctrl btn-accent" id="open-palette-btn" title="1 முதல் 100 வினாக்களின் பலகை">
+          <span aria-hidden="true">▦</span> வினாப் பலகை
+        </button>
+        <button type="button" class="btn-ctrl" id="theme-btn" title="இரவு / பகல் முறை">
+          <span id="theme-icon">☾</span> <span class="btn-text">இரவு முறை</span>
+        </button>
+        <button type="button" class="btn-ctrl" onclick="window.print()" title="வினாத்தாளை அச்சிடு">
+          <span aria-hidden="true">🖨️</span> அச்சிடு
+        </button>
+        <button type="button" class="btn-ctrl btn-danger" id="reset-btn" title="தேர்வை மறுதொடக்கம் செய்ய">
+          <span aria-hidden="true">↻</span> மறுதொடக்கம்
+        </button>
+      </div>
+    </div>
+    <div class="quiz-header-body">
+      <h1 class="quiz-title">பொதுத் தமிழ் மாதிரி வினாத்தாள் (100 வினாக்கள்)</h1>
+      <p class="quiz-subtitle">பருவம் 1 முழுப் பாடப்பகுதி — அதிகாரப்பூர்வ விடைக்குறிப்பு மற்றும் விரிவான விளக்கங்களுடன் உங்கள் அறிவைச் சோதித்து மேம்படுத்துங்கள்.</p>
+    </div>
+  </header>
+
+  <!-- 2. Integrated Statistics & Control Dashboard -->
+  <section class="quiz-dashboard" aria-label="தேர்வு புள்ளிவிவரம் மற்றும் கட்டுப்பாடுகள்">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">மொத்த வினாக்கள்</span>
+        <b class="stat-value" id="stat-total">100</b>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">விடையளித்தவை</span>
+        <b class="stat-value" id="stat-answered">0</b>
+      </div>
+      <div class="stat-card stat-correct">
+        <span class="stat-label">சரியான விடை</span>
+        <b class="stat-value text-correct" id="stat-correct">0</b>
+      </div>
+      <div class="stat-card stat-wrong">
+        <span class="stat-label">தவறான விடை</span>
+        <b class="stat-value text-wrong" id="stat-wrong">0</b>
+      </div>
+      <div class="stat-card stat-score">
+        <span class="stat-label">துல்லியம்</span>
+        <b class="stat-value text-primary" id="stat-score">0%</b>
+      </div>
+      <div class="stat-card stat-timer">
+        <span class="stat-label">பயிற்சி நேரம்</span>
+        <button type="button" class="timer-pill" id="timer-pill" title="நேரத்தை இடைநிறுத்த / மீண்டும் தொடங்க">
+          <span>⏱️</span> <span id="timer-text">00:00:00</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dual Color Progress Bar -->
+    <div class="progress-track" role="progressbar" aria-label="விடையளித்த முன்னேற்றம்" aria-valuemin="0" aria-valuemax="100">
+      <div class="prog-correct" id="prog-correct"></div>
+      <div class="prog-wrong" id="prog-wrong"></div>
+    </div>
+
+    <!-- Filters & Jump-to Question Row -->
+    <div class="dashboard-controls">
+      <div class="filter-tabs" role="group" aria-label="வினாக்களை வடிகட்டுக">
+        <button type="button" class="tab-pill active" data-filter="all">அனைத்தும் (100)</button>
+        <button type="button" class="tab-pill" data-filter="unanswered">மீதமுள்ளவை (<span id="count-unanswered">100</span>)</button>
+        <button type="button" class="tab-pill tab-wrong" data-filter="wrong">தவறானவை (<span id="count-wrong">0</span>)</button>
+        <button type="button" class="tab-pill tab-correct" data-filter="correct">சரியானவை (<span id="count-correct">0</span>)</button>
+        <button type="button" class="tab-pill tab-bookmark" data-filter="bookmark">சேமித்தவை (<span id="count-bookmark">0</span>)</button>
+      </div>
+
+      <div class="jump-group">
+        <label class="jump-lbl" for="jump-input">வினா எண்</label>
+        <input type="number" id="jump-input" class="jump-input" min="1" max="100" inputmode="numeric" placeholder="1–100">
+        <button type="button" class="btn-app btn-primary" id="jump-btn">செல்</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Self-Evaluation Guide (Clean & Compact) -->
+  <section class="eval-card" aria-label="சுய மதிப்பீட்டு வழிகாட்டி">
+    <div class="eval-header">
+      <div class="eval-header-title">உங்கள் மதிப்பெண்ணைப் புரிந்துகொள்ளுங்கள்</div>
+    </div>
+    <div class="eval-grid">
+      <div class="eval-box rank">
+        <div class="eval-box-score">95–100 · சிறப்பு</div>
+        <div class="eval-box-desc">தவறுகள் இருந்தால் அவற்றையும் ஒருமுறை மறுபார்வை செய்யுங்கள்.</div>
+      </div>
+      <div class="eval-box good">
+        <div class="eval-box-score">85–94 · நல்ல முன்னேற்றம்</div>
+        <div class="eval-box-desc">தவறவிட்ட வினாக்களை மீண்டும் படித்து முயற்சி செய்யுங்கள்.</div>
+      </div>
+      <div class="eval-box need">
+        <div class="eval-box-score">85-க்குக் கீழ் · மீண்டும் பயிற்சி</div>
+        <div class="eval-box-desc">விளக்கங்களைப் படித்து, புரிந்த பிறகு மறுதேர்வு எழுதுங்கள்.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Questions List (Primary Focus) -->
+  <main id="questions-list" aria-label="பயிற்சி வினாக்கள்"></main>
+  <div class="no-results-card" id="no-results">
+    <h3>இந்தப் பிரிவில் வினாக்கள் இல்லை</h3>
+    <p>வேறு வடிகட்டியைத் தேர்ந்தெடுத்து தொடருங்கள்.</p>
+  </div>
+
+  <!-- 5. Full Screen Animated Results Experience -->
+  <section id="results-screen" class="results-screen" style="display:none;" aria-label="தேர்வு முடிவு மற்றும் மதிப்பீடு">
+    <canvas id="fireworks-canvas" class="fireworks-canvas"></canvas>
+    <div class="results-container">
+      <div class="results-celebration-card">
+        <div class="results-badge-pill">🏛️ TNPSC GROUP 4 · தேர்வு மதிப்பீட்டு அறிக்கை</div>
+        <h2 class="results-title">தேர்வு வெற்றிகரமாக முடிந்தது! 🎉</h2>
+        <p class="results-subtitle" id="res-feedback-msg">உங்கள் தேர்வுத் திறன் குறித்த விரிவான பகுப்பாய்வு கீழே கொடுக்கப்பட்டுள்ளது.</p>
+
+        <!-- Big Score Hero -->
+        <div class="score-hero">
+          <div class="score-circle">
+            <span class="score-number" id="res-score-number">0</span>
+            <span class="score-total">/ 100</span>
+          </div>
+          <div class="score-meta">
+            <div class="accuracy-tag">துல்லியம்: <strong id="res-accuracy">0%</strong></div>
+            <div class="time-taken-tag">நேரம்: <strong id="res-time-taken">00:00:00</strong></div>
+          </div>
+        </div>
+
+        <!-- Detailed Metrics Grid -->
+        <div class="results-metrics-grid">
+          <div class="metric-card">
+            <span class="metric-label">மொத்த வினாக்கள்</span>
+            <strong class="metric-val" id="res-stat-total">100</strong>
+          </div>
+          <div class="metric-card metric-answered">
+            <span class="metric-label">விடையளித்தவை</span>
+            <strong class="metric-val" id="res-stat-answered">100</strong>
+          </div>
+          <div class="metric-card metric-correct">
+            <span class="metric-label">சரியான விடைகள்</span>
+            <strong class="metric-val text-correct" id="res-stat-correct">0</strong>
+          </div>
+          <div class="metric-card metric-wrong">
+            <span class="metric-label">தவறான விடைகள்</span>
+            <strong class="metric-val text-wrong" id="res-stat-wrong">0</strong>
+          </div>
+          <div class="metric-card metric-unanswered">
+            <span class="metric-label">விடுபட்டவை</span>
+            <strong class="metric-val" id="res-stat-unanswered">0</strong>
+          </div>
+        </div>
+
+        <!-- Visual Correct vs Wrong Percentage Bar -->
+        <div class="results-breakdown-box">
+          <div class="breakdown-labels">
+            <span class="lbl-correct">✓ சரியானது: <b id="res-pct-correct">0%</b></span>
+            <span class="lbl-wrong">✕ தவறானது: <b id="res-pct-wrong">0%</b></span>
+          </div>
+          <div class="res-prog-track">
+            <div class="res-prog-bar-correct" id="res-bar-correct" style="width:0%"></div>
+            <div class="res-prog-bar-wrong" id="res-bar-wrong" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Post-Exam Primary Action Buttons -->
+        <div class="results-actions">
+          <button type="button" class="btn-app btn-primary btn-lg" id="btn-review-answers">
+            <span>📝</span> விடைகளை மறுபார்வை செய் (Review Answers)
+          </button>
+          <button type="button" class="btn-app btn-danger btn-lg" id="btn-retry-test">
+            <span>↻</span> மீண்டும் தேர்வு எழுது (Retry Test)
+          </button>
+          <button type="button" class="btn-app btn-lg" id="btn-home-test">
+            <span>🏠</span> வினாத்தாள் முகப்பு (Quiz Home)
+          </button>
+        </div>
+      </div>
+
+      <!-- Question-Wise Detailed Review Section -->
+      <section class="review-section" id="question-wise-review">
+        <div class="review-header">
+          <div class="review-title-group">
+            <h3 class="review-heading">100 வினாக்களின் முழுமையான மதிப்பாய்வு</h3>
+            <p class="review-desc">ஒவ்வொரு வினாவிற்கும் உங்கள் தேர்வு, சரியான விடை மற்றும் விரிவான அரசுப் பாடப்புத்தக விளக்கக் குறிப்பு.</p>
+          </div>
+          <!-- Review Filters -->
+          <div class="review-filter-tabs" role="group" aria-label="மறுபார்வை வடிகட்டி">
+            <button type="button" class="rev-tab active" data-rev-filter="all">அனைத்தும் (100)</button>
+            <button type="button" class="rev-tab rev-correct" data-rev-filter="correct">சரியானவை (<span id="rev-correct-count">0</span>)</button>
+            <button type="button" class="rev-tab rev-wrong" data-rev-filter="wrong">தவறானவை (<span id="rev-wrong-count">0</span>)</button>
+          </div>
+        </div>
+
+        <!-- Rendered Review Questions Container -->
+        <div class="review-cards-list" id="review-cards-list"></div>
+      </section>
+    </div>
+  </section>
+</div>
+
+<!-- OMR Question Palette Modal (1-100 Grid) -->
+<div class="modal-overlay" id="palette-modal" role="dialog" aria-modal="true" aria-label="வினாப் பலகை">
+  <div class="palette-modal">
+    <div class="palette-header">
+      <div class="palette-title">வினாப் பலகை (1 முதல் 100 வினாக்கள்)</div>
+      <button type="button" class="close-modal-btn" id="close-palette-btn" aria-label="மூடுக">&times;</button>
+    </div>
+    <div class="palette-legend">
+      <div class="legend-item"><div class="legend-dot dot-correct"></div> சரியானது</div>
+      <div class="legend-item"><div class="legend-dot dot-wrong"></div> தவறானது</div>
+      <div class="legend-item"><div class="legend-dot dot-unanswered"></div> விடையளிக்காதது</div>
+      <div class="legend-item"><div class="legend-dot dot-bookmarked"></div> சேமித்தது</div>
+    </div>
+    <div class="palette-body" id="palette-grid"></div>
+    <div class="palette-footer" style="padding:14px 22px;border-top:1px solid var(--border-light);background:var(--bg-subtle);">
+      <button type="button" class="btn-app btn-primary" id="palette-submit-btn" style="width:100%;justify-content:center;padding:10px 18px;font-weight:700;">
+        <span>✨</span> தேர்வைச் சமர்ப்பிக்க (Submit Test)
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Unanswered Validation Warning Modal -->
+<div class="modal-overlay" id="unanswered-modal" role="dialog" aria-modal="true" aria-labelledby="unanswered-modal-title">
+  <div class="palette-modal unanswered-modal-content">
+    <div class="unanswered-modal-header">
+      <div class="warn-icon" aria-hidden="true">⚠️</div>
+      <h3 id="unanswered-modal-title" class="unanswered-modal-title">இன்னும் வினாக்களுக்கு விடையளிக்கவில்லை!</h3>
+      <p class="unanswered-modal-sub" id="warn-unanswered-subtitle">Innum <b id="warn-unanswered-count">0</b> questions answer pannala!</p>
+      <button type="button" class="close-modal-btn" id="close-unanswered-btn" aria-label="மூடுக">&times;</button>
+    </div>
+    <div class="unanswered-modal-body">
+      <div class="unanswered-stats-box">
+        <div class="u-stat-row">
+          <span>மொத்த வினாக்கள்:</span>
+          <strong>100</strong>
+        </div>
+        <div class="u-stat-row">
+          <span>விடையளித்தவை:</span>
+          <strong id="warn-answered-count" class="text-correct">0</strong>
+        </div>
+        <div class="u-stat-row">
+          <span>மீதமுள்ள வினாக்கள்:</span>
+          <strong id="warn-missing-count" class="text-wrong">0</strong>
+        </div>
+      </div>
+      <div class="unanswered-instruction-box">
+        <p>⚠️ <strong>கட்டாய விதிமுறை:</strong> TNPSC முழு மாதிரித் தேர்வைச் சமர்ப்பிக்க அனைத்து 100 வினாக்களுக்கும் விடையளிக்க வேண்டும். விடுபட்ட வினாக்களுக்கு விடையளித்த பின்பே தேர்வு இறுதி செய்யப்படும்.</p>
+      </div>
+      <div class="unanswered-actions">
+        <button type="button" class="btn-app btn-primary" id="btn-goto-unanswered">
+          <span>➡️</span> விடையளிக்காத வினாவுக்குச் செல் (Option A)
+        </button>
+        <button type="button" class="btn-app" id="btn-review-unanswered-palette">
+          <span>▦</span> விடுபட்ட வினாக்களைப் பலகையில் பார்க்க (Option B)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Submission Confirmation Modal -->
+<div class="modal-overlay" id="confirm-submit-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-submit-title">
+  <div class="palette-modal confirm-submit-modal-content">
+    <div class="confirm-header">
+      <div class="confirm-icon" aria-hidden="true">🎯</div>
+      <h3 id="confirm-submit-title" class="confirm-title">தேர்வைச் சமர்ப்பிக்கத் தயாரா?</h3>
+      <p class="confirm-sub">Are you ready to submit your test?</p>
+      <button type="button" class="close-modal-btn" id="close-confirm-btn" aria-label="மூடுக">&times;</button>
+    </div>
+    <div class="confirm-body">
+      <p class="confirm-lead-text">அனைத்து 100 வினாக்களுக்கும் விடையளித்துவிட்டீர்கள். சமர்ப்பித்த பிறகு இறுதி மதிப்பெண், துல்லிய சதவீதம் மற்றும் விரிவான விளக்கங்கள் தோன்றும்.</p>
+      <div class="confirm-stats-box">
+        <div class="c-stat"><span>மொத்தம்:</span> <strong>100</strong></div>
+        <div class="c-stat"><span>விடையளித்தவை:</span> <strong class="text-correct">100</strong></div>
+        <div class="c-stat"><span>மீதமுள்ளவை:</span> <strong>0</strong></div>
+      </div>
+      <div class="confirm-actions">
+        <button type="button" class="btn-app" id="btn-cancel-submit">
+          <span>↩️</span> மீண்டும் சரிபார்க்க (Continue Test)
+        </button>
+        <button type="button" class="btn-app btn-primary" id="btn-final-submit">
+          <span>✨</span> இறுதியாகச் சமர்ப்பி (Submit Final Answers)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reset Confirmation Modal -->
+<div class="modal-overlay" id="reset-modal" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+  <div class="palette-modal" style="max-width:440px;text-align:center;padding:28px 22px">
+    <div style="font-size:2rem;margin-bottom:8px" aria-hidden="true">↻</div>
+    <h3 id="reset-title" style="font-size:1.2rem;font-weight:800;margin-bottom:8px;color:var(--text-main)">மீண்டும் தொடங்க வேண்டுமா?</h3>
+    <p style="font-size:.92rem;color:var(--text-muted);line-height:1.8;margin-bottom:22px">இந்தத் தேர்வில் அளித்த விடைகளும் புக்மார்க் செய்த வினாக்களும் நீக்கப்படும். மற்ற தளத் தரவுகள் பாதிக்கப்படாது.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button type="button" class="btn-app" id="modal-cancel-reset">வேண்டாம்</button>
+      <button type="button" class="btn-app btn-danger" id="modal-confirm-reset">ஆம், மீண்டும் தொடங்கு</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Action Button (Scroll to top) -->
+<div class="fab-container">
+  <button type="button" class="fab-btn" id="fab-top" title="மேலே செல்" style="display:none" aria-label="பக்கத்தின் மேலே செல்">↑</button>
+</div>
+
+<!-- Toast Notifications -->
+<div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Scripts -->
+<script src="js/questions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
